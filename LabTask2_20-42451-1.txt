@@ -1,0 +1,339 @@
+COA[O]
+Shadril Hassan Shifat
+20-42451-1
+---------------------------------------------------
+---------------------------------------------------
+1.
+.model small
+.stack 100h
+.data   
+cnt db 26
+nl equ 0AH
+cr equ 0DH  
+.code
+main proc  
+    mov ax, @data
+    mov ds, ax 
+    
+    mov bl, 41h  
+    jmp PRINT
+    
+    PRINT:
+    mov ah,2 
+    mov dl, bl
+    int 21h 
+    
+    mov dl, nl
+    int 21h
+    mov dl, cr
+    int 21h
+    
+    inc bl
+    dec cnt   
+    cmp cnt, 0
+    jnz PRINT
+    
+    mov ah, 4ch
+    int 21h
+    main endp
+end main         
+         
+---------------------------------------------------
+---------------------------------------------------
+2.a)
+.model small
+.stack 100h
+.data    
+.code
+main proc  
+    
+    mov ax, -1
+    cmp ax, 0
+    jl IF
+    
+    IF:
+    mov bx, -1
+    
+    mov ah, 4ch
+    int 21h
+    main endp
+end main         
+---------------------------------------------------
+---------------------------------------------------
+2.b)
+.model small
+.stack 100h
+.data    
+.code
+main proc  
+    
+    mov ax, 3
+    cmp ax, 0
+    jl IF 
+    jge ELSE
+    
+    IF:
+    mov ah, 0FFh 
+    
+    ELSE:
+    mov ah, 30h
+    
+    mov ah, 4ch
+    int 21h
+    main endp
+end main
+---------------------------------------------------
+---------------------------------------------------
+2.c)
+.model small
+.stack 100h
+.data 
+msg1 db "o$"
+msg2 db "e$"   
+.code
+main proc  
+    mov ax, @data
+    mov ds, ax 
+   
+    mov al,1
+    
+    cmp al,1
+    je PRINTO
+    cmp al,3  
+    je PRINTO
+    
+    cmp al,2
+    je PRINTE
+    cmp al,4
+    je PRINTE
+    
+    PRINTO:
+    mov ah,9
+    lea dx, msg1
+    int 21h  
+    jmp END
+    
+    PRINTE:
+    mov ah,9
+    lea dx, msg2
+    int 21h 
+    jmp END    
+    
+    END:
+    mov ah, 4ch
+    int 21h
+    main endp
+end main
+---------------------------------------------------
+---------------------------------------------------
+3.
+.model small
+.stack 100h
+.data
+var db ?      
+msg1 db "Enter a lower case letter: $"
+msg2 db "In upper letter it is: $"
+nl equ 0AH
+cr equ 0DH 
+.code
+main proc  
+    mov ax, @data
+    mov ds, ax  
+    
+    mov ah,9
+    lea dx, msg1
+    int 21h 
+    
+    mov ah,1  
+    int 21h
+    mov var, al      
+    
+    mov ah, 2    
+    mov dl, nl
+    int 21h
+    mov dl, cr
+    int 21h
+     
+    mov ah,9
+    lea dx, msg2
+    int 21h  
+          
+    mov ah,2  
+    sub var,20h
+    mov dl,var 
+    int 21h 
+    
+    mov ah, 4ch
+    int 21h
+    main endp
+end main         
+
+---------------------------------------------------
+---------------------------------------------------
+4.
+.model small
+.stack 100h
+.data  
+
+sm db 0
+  
+msg1 db "Enter 3 numbers. $" 
+msg2 db "First input is: $"  
+msg3 db "Second input is: $"  
+msg4 db "Third input is: $"  
+msg5 db "The summation is: $"
+nl equ 0AH
+cr equ 0DH 
+.code
+main proc  
+    mov ax, @data
+    mov ds, ax
+    
+    mov ah,9
+    lea dx, msg1
+    int 21h  
+      
+    mov ah,2
+    mov dl, nl
+    int 21h
+    mov dl, cr
+    int 21h  
+    
+    mov ah,9
+    lea dx, msg2
+    int 21h 
+    
+    mov ah,1 
+    int 21h
+    add sm, al
+      
+    mov ah,2
+    mov dl, nl
+    int 21h
+    mov dl, cr
+    int 21h
+    
+    mov ah,9
+    lea dx, msg3
+    int 21h 
+    
+    mov ah,1 
+    int 21h
+    add sm, al
+      
+    mov ah,2
+    mov dl, nl
+    int 21h
+    mov dl, cr
+    int 21h 
+           
+    mov ah,9
+    lea dx, msg4
+    int 21h 
+    
+    mov ah,1 
+    int 21h
+    add sm, al
+      
+    mov ah,2
+    mov dl, nl
+    int 21h
+    mov dl, cr
+    int 21h
+          
+    mov ah,9
+    lea dx, msg5
+    int 21h
+    
+    mov ah,2  
+    sub sm,60h
+    mov dl, sm
+    int 21h
+    
+    mov dl, nl
+    int 21h
+    mov dl, cr
+    int 21h  
+    
+    mov ah, 4ch
+    int 21h
+    main endp
+end main         
+          
+---------------------------------------------------
+---------------------------------------------------
+
+5.
+.model small
+.stack 100h
+.data  
+
+msg1 db "Name: $" 
+msg2 db "ID: $"  
+msg3 db "Email: $"  
+msg4 db "Address: $"   
+
+var1 db "Shadril Hassan Shifat$"
+var2 db "20-42451-1$"
+var3 db "shadrilhassan@outlook.com$"
+var4 db "Bashundhara R/A, Dhaka$"
+
+nl equ 0AH
+cr equ 0DH 
+.code
+main proc  
+    mov ax, @data
+    mov ds, ax
+    
+    mov ah,9
+    lea dx, msg1
+    int 21h 
+    lea dx, var1
+    int 21h
+    
+    mov ah,2
+    mov dl, nl
+    int 21h
+    mov dl, cr
+    int 21h   
+    
+    mov ah,9
+    lea dx, msg2
+    int 21h 
+    lea dx, var2
+    int 21h
+    
+    mov ah,2
+    mov dl, nl
+    int 21h
+    mov dl, cr
+    int 21h 
+    
+    mov ah,9
+    lea dx, msg3
+    int 21h 
+    lea dx, var3
+    int 21h
+    
+    mov ah,2
+    mov dl, nl
+    int 21h
+    mov dl, cr
+    int 21h
+    
+    mov ah,9
+    lea dx, msg4
+    int 21h 
+    lea dx, var4
+    int 21h
+    
+    mov ah,2
+    mov dl, nl
+    int 21h
+    mov dl, cr
+    int 21h
+   
+    mov ah, 4ch
+    int 21h
+    main endp
+end main   
